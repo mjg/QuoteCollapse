@@ -51,42 +51,104 @@ var QuoteCollapse = {
     var messageDocument = QuoteCollapse._messagePane.contentDocument; 
     if( ! messageDocument.getElementsByTagName("blockquote").item(0) ) return; // nothing to be done
     messageDocument.addEventListener("click", QuoteCollapse._onClick, false);
-    messageDocument.getElementsByTagName("body").item(0).className='mailview';
+    messageDocument.getElementsByTagName("body").item(0).className='mailview'; // class for customizing
 
-    //the following is inspired by code from quotecolors
+    // the following is inspired by code from quotecolors
     var StyleElement = messageDocument.createElement("style");
     StyleElement.type = "text/css";
+    // we don't need a BODY.mailview qualifier here
     var stylecontent='\
-BODY.mailview blockquote[type="cite"] {\n\
- background: url("chrome://global/skin/tree/twisty-clsd.png") no-repeat top left;\n\
- height: 2ex;\n\
- padding-bottom: 0px;\n\
+blockquote[type="cite"] {\n\
+ background: url("chrome://global/skin/tree/twisty-clsd.gif") no-repeat top left;\n\
+ height: 2.25ex;\n\
+ padding-bottom: 0px ! important;\n\
  overflow: -moz-hidden-unscrollable;\n\
 }\n\
 \n\
-BODY.mailview blockquote[type="cite"].qctoggled {\n\
- background: url("chrome://global/skin/tree/twisty-open.png") no-repeat top left;\n\
+blockquote[type="cite"][qctoggled="true"] {\n\
+ background: url("chrome://global/skin/tree/twisty-open.gif") no-repeat top left;\n\
  height: auto;\n\
  overflow: visible;\n\
 }\n\
 ';
     var styletext = document.createTextNode(stylecontent);
     StyleElement.appendChild(styletext);
-    messageDocument.getElementsByTagName("head")[0].appendChild(StyleElement);
+    messageDocument.getElementsByTagName("head").item(0).appendChild(StyleElement);
   },
 
+  _getState: function(node) {
+    return (node.getAttribute("qctoggled")=="true");
+  },
+
+  _setState: function(node, state) {
+    if(state)
+      node.setAttribute("qctoggled","true");
+    else
+      node.setAttribute("qctoggled","false");
+  },
+
+  _setSubTree: function(node, state) {
+    if(node.nodeName == 'BLOCKQUOTE')
+      QuoteCollapse._setState(node, state);
+   
+    for (var i=0; i<node.childNodes.length; i++) {
+      QuoteCollapse._setSubTree(node.childNodes.item(i), state);
+    }
+  },
+
+  _setSubTreeLevel: function(node, state, level) {
+    if(node.nodeName == 'BLOCKQUOTE') {
+      if(level<=0) {
+        QuoteCollapse._setState(node, state);
+	return; // no need to go deeper
+      }
+      level--; // only BQs count for the level magic
+    } 
+    for (var i=0; i<node.childNodes.length; i++) {
+      QuoteCollapse._setSubTreeLevel(node.childNodes.item(i), state, level);
+    }
+  },
+
+  // we could use subtree on BODY, but the following is more efficient
+  _setTree : function(doc, newstate) {
+    var tree =  doc.getElementsByTagName("blockquote");
+    for(var i=0; i<tree.length; i++)
+      QuoteCollapse._setState(tree.item(i), newstate);
+  },
+  
+  _setLevel : function(target, newstate) {
+    var level=0;
+    var node=target;
+    do {
+      node = node.parentNode;
+      if(node.nodeName == 'BLOCKQUOTE')
+        level++;
+    } while(node.nodeName != 'BODY');
+    QuoteCollapse._setSubTreeLevel(node, newstate, level); // node is the BODY element
+  },
+  
  // this is called by a click event
   _onClick: function(event) {
     var target = event.target;
+    if(target.nodeName == 'SPAN')
+      target = target.parentNode; // cite-tags span?
     if(target.nodeName == 'PRE')
-      target = target.parentNode; // PRE inside; don't handle recursively
+      target = target.parentNode; // PRE inside; don't walk all the way up
     if(target.nodeName != 'BLOCKQUOTE')
-      return;
+      return true;
 
-    if(target.className=='')
-      target.className='qctoggled';
+    var newstate= ! QuoteCollapse._getState(target);
+
+    if(event.shiftKey)
+      if(event.ctrlKey)
+        QuoteCollapse._setTree(target.ownerDocument, newstate);
+      else
+       QuoteCollapse._setSubTree(target, newstate);
     else
-      target.className='';
+      if(event.ctrlKey)
+        QuoteCollapse._setLevel(target, newstate);
+      else
+        QuoteCollapse._setState(target, newstate);
     return true;
   },
 

@@ -33,19 +33,22 @@
 
 <!-- MAIN CONTENT -->
 <P>If you have ever been bothered by excessive quotes in e-mails or newsgroup posts (especially in mailing list mirrors), this is the extension for you.
-It automatically collapses all quotes, and expands them again on a click.
+It automatically collapses all quotes, and expands them again on a click. 
+Hold down SHIFT while clicking, and all quotes contained in the current one will be collapsed/expanded. Hold down CTRL, and all quotes of the same nesting level will be toggled. Hold down CTRL and SHIFT, and all quotes will be toggled.
 </P>
 
 <H3>How it works </H3>
 <P>
-The extension toggles the CSS class of quotes, so that the style can be switched using CSS. Note that this implies:
+The extension toggles a CSS attribute of quotes, so that the style can be switched using CSS. Note that this implies:
 <UL>
 <LI>QuoteCollapse works with plain text mails in the standard configuration.</LI>
 <LI>It works with HTML mails if you view the message body as original HTML or simple HTML.</LI>
 <LI>It does not work with HTML mails if you view them as plain text, because this explicitely turns off all styling.</LI>
-<LI>It does not work with plain text mails if you switch off graphical quotes and block quotes using hidden preferences (see, e.g., <a href="http://www.holgermetzger.de/efaqmailnews.html#4">Holger Metzger's FAQ</a>), because this turns off the necessary style elements as well.</LI>
+<LI>It does not work with plain text mails if you switch off graphical quotes and block quotes using hidden preferences (see, e.g., <a href="http://www.holgermetzger.de/efaqmailnews.html#4">Holger Metzger's FAQ</a>), because this turns off the necessary style elements as well (you can switch off graphical quotes, just don't switch off block quotes).</LI>
 <LI>It intentionally does not influence the text in the composer; otherwise changed styles would be included in the HTML which gets sent out.
 </LI>
+<LI>It coexists happily with other extensions changing the style, such as <a href="http://quotecolors.mozdev.org/">QuoteColors</A>.</LI>
+<LI>It can be customised through CSS, see <a href="customising.html">Customising</a>.</LI>
 </UL>
 </P>
 
@@ -54,7 +57,7 @@ The extension toggles the CSS class of quotes, so that the style can be switched
 My current plans are:</P>
 <UL>
 <LI> Post screenshot :)
-<LI> Document customization
+<LI> Document customisation
 <LI> Version for Mozilla Suite
-<LI> Expand/collapse recursively and by level
+<LI> <SPAN class="struck">Expand/collapse recursively and by level</SPAN>: done in version 0.2
 </UL>

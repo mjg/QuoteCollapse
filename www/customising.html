@@ -1,0 +1,40 @@
+<!-- MAIN CONTENT -->
+<h5 class="page-header"><a id="content" name="content">Customising</a></h5>
+
+<P>The style that QuoteCollapse applies by default is equivalent to the following:
+<P>
+<CODE><PRE>
+blockquote[type="cite"] {
+  background: url("chrome://global/skin/tree/twisty-clsd.gif") no-repeat top left;
+  height: 2ex;
+  padding-bottom: 0px ! important;
+  overflow: -moz-hidden-unscrollable;
+}
+
+blockquote[type="cite"][qctoggled="true"] {
+  background: url("chrome://global/skin/tree/twisty-open.gif") no-repeat top left;
+  height: auto;
+  overflow: visible;
+}
+</PRE></CODE>
+<P>Therefore, you can style everything through your userContent.css. You can edit this file by hand or using the 
+<a href="http://http://cdn.mozdev.org/chromedit/">ChromeEdit extension</a>. Note that you have to use the &quot;important&quot; flag to override the default settings. Note also the use of <CODE>BODY.mailview</CODE> which ensures that the style is applied when viewing mails only (not in the editor).
+<BR>Examples:
+
+<UL>
+<LI> No twisty when expanded:
+<CODE><PRE>
+BODY.mailview blockquote[type="cite"][qctoggled="true"] {
+  background-image: none ! important ;
+}
+ </PRE></CODE>
+ </LI>
+ <LI> Minimize collapsed size to the height of the twisty:
+ <CODE><PRE>
+BODY.mailview blockquote[type="cite"]:not([qctoggled="true"]) {
+  height: 9px !important;
+}
+ </PRE></CODE>
+ </LI>
+</UL>
+
