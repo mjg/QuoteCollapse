@@ -5,14 +5,14 @@
 <P>
 <CODE><PRE>
 blockquote[type="cite"] {
-  background: url("chrome://global/skin/tree/twisty-clsd.gif") no-repeat top left;
+  background: url("chrome://quotecollapse/skin/twisty-clsd.png") no-repeat top left;
   height: 2ex;
   padding-bottom: 0px ! important;
   overflow: -moz-hidden-unscrollable;
 }
 
 blockquote[type="cite"][qctoggled="true"] {
-  background: url("chrome://global/skin/tree/twisty-open.gif") no-repeat top left;
+  background: url("chrome://quotecollapse/skin/twisty-open.png") no-repeat top left;
   height: auto;
   overflow: visible;
 }
@@ -26,7 +26,7 @@ blockquote[type="cite"][qctoggled="true"] {
 <LI> Expand all quotes by default:
 <CODE><PRE>
 BODY.mailview blockquote[type="cite"] {
-  background-image: url("chrome://global/skin/tree/twisty-open.gif") !important;
+  background-image: url("chrome://quotecollapse/skin/twisty-open.png") !important;
   background-repeat: no-repeat !important;
   background-position: top left !important;
   height: auto !important;
@@ -34,7 +34,7 @@ BODY.mailview blockquote[type="cite"] {
 }
 
 BODY.mailview blockquote[type="cite"][qctoggled="true"] {
-  background-image: url("chrome://global/skin/tree/twisty-clsd.gif") !important;
+  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png") !important;
   background-repeat: no-repeat !important;
   background-position: top left !important;
   height: 2ex !important;
@@ -70,7 +70,7 @@ blockquote[type="cite"] {
 
 /* reinstate for level 1 and above: */
 BODY.mailview blockquote[type="cite"] blockquote[type="cite"] {
-  background-image: url("chrome://global/skin/tree/twisty-clsd.gif") !important;
+  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png") !important;
   background-repeat: no-repeat !important;
   background-position: top left !important;
   height: 2ex !important;
@@ -79,7 +79,7 @@ BODY.mailview blockquote[type="cite"] blockquote[type="cite"] {
 }
 
 BODY.mailview blockquote[type="cite"] blockquote[type="cite"][qctoggled="true"] {
-  background-image: url("chrome://global/skin/tree/twisty-open.gif") !important;
+  background-image: url("chrome://quotecollapse/skin/twisty-open.png") !important;
   background-repeat: no-repeat !important;
   background-position: top left !important;
   height: auto !important;
@@ -110,7 +110,7 @@ blockquote[type="cite"] {
 
 /* reinstate for second quote and following: */
 BODY.mailview DIV > pre:first-child + blockquote[type="cite"] {
-  background-image: url("chrome://global/skin/tree/twisty-clsd.gif") !important;
+  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png") !important;
   background-repeat: no-repeat !important;
   background-position: top left !important;
   height: 2ex !important;
@@ -119,7 +119,7 @@ BODY.mailview DIV > pre:first-child + blockquote[type="cite"] {
 }
 
 BODY.mailview DIV > pre:first-child + blockquote[type="cite"][qctoggled="true"] {
-  background-image: url("chrome://global/skin/tree/twisty-open.gif") !important;
+  background-image: url("chrome://quotecollapse/skin/twisty-open.png") !important;
   background-repeat: no-repeat !important;
   background-position: top left !important;
   height: auto !important;
