@@ -68,7 +68,7 @@ BODY.mailview blockquote[type="cite"] blockquote[type="cite"][qctoggled="true"] 
  </PRE></CODE>
 </LI>
 
-<LI> Always expand the first quote (this may need to be tweaked depending on quoting styles):
+<LI> Always expand the first quote:
  <CODE><PRE>
 /* overwrite quotecollapse default for first quote */
 DIV > pre:first-child + blockquote[type="cite"] {
@@ -77,6 +77,37 @@ DIV > pre:first-child + blockquote[type="cite"] {
   overflow: visible !important;
 }
  </PRE></CODE>
+This may need to be tweaked depending on quoting styles. E.g., add the same rule for blockquotes which are first childs instead of adjacent to a first child pre.
+</LI>
+
+<LI> Collapse only the first quote:
+ <CODE><PRE>
+/* overwrite quotecollapse default for first quote */
+blockquote[type="cite"] {
+  background-image: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* reinstate for second quote and following: */
+BODY.mailview DIV > pre:first-child + blockquote[type="cite"] {
+  background-image: url("chrome://global/skin/tree/twisty-clsd.gif") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: 2ex !important;
+  padding-bottom: 0px !important;
+  overflow: -moz-hidden-unscrollable !important;
+}
+
+BODY.mailview DIV > pre:first-child + blockquote[type="cite"][qctoggled="true"] {
+  background-image: url("chrome://global/skin/tree/twisty-open.gif") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+ </PRE></CODE>
+The same remark as above applies. Also, if you want twisties inside of the first quote, add rules for level 1 and deeper (see the example on expanding 1st level).
 </LI>
 
 </UL>
