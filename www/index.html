@@ -4,8 +4,7 @@
 <div class="infoTab" id="whats-new">
 <h5 class="infoHeader">What's New</h5>
 <ul>
-<li>News item goes here</li>
-<li>More news items go here</li>
+<li>Version 0.1 for Thunderbird</li>
 <li><a href="http://www.mozdev.org/">mozdev.org</a></li>
 </ul>
 </div>
@@ -13,8 +12,8 @@
 <div class="infoTab" id="other-stuff">
 <h5 class="infoHeader">Other Stuff</h5>
 <ul>
-<li>stuff goes here</li>
-<li>more stuff goes here</li>
+<li><a href="http://quotecolors.mozdev.org/">QuoteColors extension</a></li>
+<li><a href="http://http://cdn.mozdev.org/chromedit/">ChromeEdit extension</a></li>
 </ul>
 </div>
 
@@ -33,7 +32,29 @@
 <!-- ***************** INFO/NEWS *************** -->
 
 <!-- MAIN CONTENT -->
-<p>The <strong>quotecollapse</strong> project content goes here.</p>
+<P>If you have ever been bothered by excessive quotes in e-mails or newsgroup posts (especially in mailing list mirrors), this is the extension for you.
+It automatically collapses all quotes, and expands them again on a click.
+</P>
 
-<p><strong>Note:</strong> If you want to add an area for user feedback to any of your pages, take a look at the <a href="notes.html">notes.html</a>
-template.</p>
+<H3>How it works </H3>
+<P>
+The extension toggles the CSS class of quotes, so that the style can be switched using CSS. Note that this implies:
+<UL>
+<LI>QuoteCollapse works with plain text mails in the standard configuration.</LI>
+<LI>It works with HTML mails if you view the message body as original HTML or simple HTML.</LI>
+<LI>It does not work with HTML mails if you view them as plain text, because this explicitely turns off all styling.</LI>
+<LI>It does not work with plain text mails if you switch off graphical quotes and block quotes using hidden preferences (see, e.g., <a href="http://www.holgermetzger.de/efaqmailnews.html#4">Holger Metzger's FAQ</a>), because this turns off the necessary style elements as well.</LI>
+<LI>It intentionally does not influence the text in the composer; otherwise changed styles would be included in the HTML which gets sent out.
+</LI>
+</UL>
+</P>
+
+<H3>To do</H3>
+<P> Feel free to tell me your suggestions through the <A HREF="list.html" text="mailing list">mailing list</A>.
+My current plans are:</P>
+<UL>
+<LI> Post screenshot :)
+<LI> Document customization
+<LI> Version for Mozilla Suite
+<LI> Expand/collapse recursively and by level
+</UL>
