@@ -7,13 +7,12 @@
   </RDF:Seq>
 
   <RDF:Description about="urn:mozilla:package:quotecollapse"
-    chrome:displayName="QuoteCollapse 0.2"
+    chrome:displayName="QuoteCollapse 0.3"
     chrome:author="Michael J Gruber"
     chrome:authorURL="http://quotecollapse.mozdev.org"
     chrome:name="quotecollapse"
     chrome:description="Collapse Quotes."
-    chrome:extension="true"
-    chrome:localeVersion="0.1">
+    chrome:extension="true">
   </RDF:Description>
 
   <RDF:Seq about="urn:mozilla:overlays">
