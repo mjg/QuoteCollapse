@@ -22,19 +22,62 @@ blockquote[type="cite"][qctoggled="true"] {
 <BR>Examples:
 
 <UL>
+
 <LI> No twisty when expanded:
 <CODE><PRE>
 BODY.mailview blockquote[type="cite"][qctoggled="true"] {
   background-image: none ! important ;
 }
- </PRE></CODE>
- </LI>
- <LI> Minimize collapsed size to the height of the twisty:
+</PRE></CODE>
+</LI>
+
+<LI> Minimize collapsed size to the height of the twisty:
  <CODE><PRE>
 BODY.mailview blockquote[type="cite"]:not([qctoggled="true"]) {
   height: 9px !important;
 }
  </PRE></CODE>
- </LI>
+</LI>
+
+<LI> Always keep 1st level expanded:
+ <CODE><PRE>
+/* overwrite quotecollapse default */
+blockquote[type="cite"] {
+  background-image: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* reinstate for level 1 and above: */
+BODY.mailview blockquote[type="cite"] blockquote[type="cite"] {
+  background-image: url("chrome://global/skin/tree/twisty-clsd.gif") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: 2ex !important;
+  padding-bottom: 0px !important;
+  overflow: -moz-hidden-unscrollable !important;
+}
+
+BODY.mailview blockquote[type="cite"] blockquote[type="cite"][qctoggled="true"] {
+  background-image: url("chrome://global/skin/tree/twisty-open.gif") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+ </PRE></CODE>
+</LI>
+
+<LI> Always expand the first quote (this may need to be tweaked depending on quoting styles):
+ <CODE><PRE>
+/* overwrite quotecollapse default for first quote */
+DIV > pre:first-child + blockquote[type="cite"] {
+  background-image: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+ </PRE></CODE>
+</LI>
+
 </UL>
 
