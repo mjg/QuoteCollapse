@@ -59,14 +59,14 @@ var QuoteCollapse = {
     // we don't need a BODY.mailview qualifier here
     var stylecontent='\
 blockquote[type="cite"] {\n\
- background: url("chrome://global/skin/tree/twisty-clsd.gif") no-repeat top left;\n\
+ background: url("chrome://quotecollapse/skin/twisty-clsd.png") no-repeat top left;\n\
  height: 2.25ex;\n\
  padding-bottom: 0px ! important;\n\
  overflow: -moz-hidden-unscrollable;\n\
 }\n\
 \n\
 blockquote[type="cite"][qctoggled="true"] {\n\
- background: url("chrome://global/skin/tree/twisty-open.gif") no-repeat top left;\n\
+ background: url("chrome://quotecollapse/skin/twisty-open.png") no-repeat top left;\n\
  height: auto;\n\
  overflow: visible;\n\
 }\n\
@@ -139,6 +139,12 @@ blockquote[type="cite"][qctoggled="true"] {\n\
 
     var newstate= ! QuoteCollapse._getState(target);
 
+
+// react only to active spot (leave rest for copy etc.
+    if( (event.pageX > target.offsetLeft+12) || (event.pageY > target.offsetTop+12) ) return true;
+    
+//    alert('node offset: x='+target.offsetLeft+' y='+target.offsetTop+ '\nevent client: x='+event.clientX+' y='+event.clientY+ '\nevent page: x='+event.pageX+' y='+event.pageY+'\nevent layer: x='+event.layerX+' y='+event.layerY);
+    
     if(event.shiftKey)
       if(event.ctrlKey)
         QuoteCollapse._setTree(target.ownerDocument, newstate);

@@ -6,10 +6,10 @@ var XpiInstaller = {
 	// --- Editable items begin ---
 	extFullName: 'QuoteCollapse', // The name displayed to the user (don't include the version)
 	extShortName: 'quotecollapse', // The leafname of the JAR file (without the .jar part)
-	extVersion: '0.3',
+	extVersion: '0.5',
 	extAuthor: 'Michael J Gruber',
 	extLocaleNames: null, // e.g. ['en-US', 'en-GB']
-	extSkinNames: null, // e.g. ['classic', 'modern']
+	extSkinNames: ['classic','mcrystal'], // e.g. ['classic', 'modern']
 	extPostInstallMessage: 'Success! Please restart your browser to finish the installation.', // Set to null for no post-install message
 	// --- Editable items end ---
 
