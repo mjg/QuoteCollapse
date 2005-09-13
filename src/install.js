@@ -6,7 +6,7 @@ var XpiInstaller = {
 	// --- Editable items begin ---
 	extFullName: 'QuoteCollapse', // The name displayed to the user (don't include the version)
 	extShortName: 'quotecollapse', // The leafname of the JAR file (without the .jar part)
-	extVersion: '0.5',
+	extVersion: '0.6',
 	extAuthor: 'Michael J Gruber',
 	extLocaleNames: null, // e.g. ['en-US', 'en-GB']
 	extSkinNames: ['classic','mcrystal'], // e.g. ['classic', 'modern']

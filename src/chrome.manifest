@@ -1,0 +1,6 @@
+content quotecollapse jar:chrome/quotecollapse.jar!/content/quotecollapse/
+skin quotecollapse classic/1.0 jar:chrome/quotecollapse.jar!/skin/classic/quotecollapse/
+skin quotecollapse mcrystal jar:chrome/quotecollapse.jar!/skin/mcrystal/quotecollapse/
+
+overlay chrome://messenger/content/mailWindowOverlay.xul chrome://quotecollapse/content/qcMailWindowOverlay.xul
+
