@@ -18,7 +18,25 @@ google_ad_channel ="9437245315";
 
 
 <!-- MAIN CONTENT -->
-<h5 class="page-header"><a id="content" name="content">Customising</a></h5>
+<h3 class="page-header"><a id="content" name="content">Customising</a></h3>
+
+<h5><a id="keybinding" name="keybinding">Key bindings</a></h5>
+<P>
+You can define a key binding for QuoteCollapse by using the <a href="http://mozilla.dorando.at/readme.html">Keyconfig extension</a>.
+The necessary code to execute on a keypress is as follows:
+<P>
+<CODE><PRE>
+var messageDocument = QuoteCollapse._messagePane.contentDocument;
+bq = messageDocument.getElementsByTagName("blockquote").item(0);
+if( ! bq ) return;
+var newstate= ! QuoteCollapse._getState(bq);
+QuoteCollapse._setTree(messageDocument, newstate);
+</PRE></CODE>
+
+<P> In future versions of QuoteCollapse there will be a special utility function QuoteCollapse.Toggle() which accomplishes the same.
+
+<h5><a id="style" name="style">Style</a></h5>
+
 
 <P>The style that QuoteCollapse applies by default is equivalent to the following:
 <P>
