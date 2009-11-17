@@ -46,34 +46,6 @@ var QuoteCollapse = {
     QuoteCollapse._messagePane.addEventListener("load", QuoteCollapse._onLoad, true); // wait for doc to be loaded
   },
 
-
-  _generateDataURI : function(fileURL, contentType) {
-    var ioserv = Components.classes["@mozilla.org/network/io-service;1"] 
-        .getService(Components.interfaces.nsIIOService); 
-    var channel = ioserv.newChannel(fileURL, 0, null); 
-    var stream = channel.open(); 
-
-    if (channel instanceof Components.interfaces.nsIHttpChannel && channel.responseStatus != 200) { 
-      return ""; 
-    }
-
-    var bstream = Components.classes["@mozilla.org/binaryinputstream;1"] 
-      .createInstance(Components.interfaces.nsIBinaryInputStream); 
-    bstream.setInputStream(stream); 
-
-    var size = 0; 
-    var file_data = ""; 
-    while(size = bstream.available()) 
-      file_data += bstream.readBytes(size); 
-
-    bstream.close();
-    stream.close();
-
-    var encoded = btoa(file_data);
-    return "data:" + contentType + ";base64," + encoded;
-  },
-
-
  // this is called when loading the document; time to insert style
   _onLoad: function(event) {
     var messageDocument = QuoteCollapse._messagePane.contentDocument; 
@@ -85,17 +57,16 @@ var QuoteCollapse = {
     var StyleElement = messageDocument.createElement("style");
     StyleElement.type = "text/css";
     // we don't need a BODY.mailview qualifier here
-    // From TB 3 on we need to convert chrome ino data so that content can access it.
     var stylecontent='\
 blockquote[type="cite"] {\n\
- background: url("' + QuoteCollapse._generateDataURI("chrome://quotecollapse/skin/twisty-clsd.png","image/png") + '") no-repeat top left;\n\
+ background: url("chrome://quotecollapse/skin/twisty-clsd.png") no-repeat top left;\n\
  height: 2.25ex;\n\
  padding-bottom: 0px ! important;\n\
  overflow: -moz-hidden-unscrollable;\n\
 }\n\
 \n\
 blockquote[type="cite"][qctoggled="true"] {\n\
- background: url("' + QuoteCollapse._generateDataURI("chrome://quotecollapse/skin/twisty-open.png","image/png") + '") no-repeat top left;\n\
+ background: url("chrome://quotecollapse/skin/twisty-open.png") no-repeat top left;\n\
  height: auto;\n\
  overflow: visible;\n\
 }\n\

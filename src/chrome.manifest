@@ -1,4 +1,5 @@
 content quotecollapse jar:chrome/quotecollapse.jar!/content/quotecollapse/
+content quotecollapse jar:chrome/quotecollapse.jar!/content/quotecollapse/ contentaccessible=yes
 skin quotecollapse classic/1.0 jar:chrome/quotecollapse.jar!/skin/classic/quotecollapse/
 skin quotecollapse mcrystal jar:chrome/quotecollapse.jar!/skin/mcrystal/quotecollapse/
 
