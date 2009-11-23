@@ -1,0 +1,7 @@
+<link rel="stylesheet" href="/project.css" type="text/css">
+<link rel="stylesheet" href="//www.mozdev.org/skin/tools/hg.css" type="text/css">
+<link rel="stylesheet" href="git.css" type="text/css">
+<link rel="icon" href="http://www.mozdev.org/sharedimages/mozdev-icon.png" type="image/png">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<META name="verify-v1" content="JHgrYoFowTQw7q8BXO+8C67m9wtEQZPNkZ3ZWNJ7mpI=" />
