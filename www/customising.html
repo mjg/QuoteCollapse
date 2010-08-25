@@ -165,5 +165,17 @@ BODY.mailview DIV > pre:first-child + blockquote[type="cite"][qctoggled="true"] 
 The same remark as above applies. Also, if you want twisties inside of the first quote, add rules for level 1 and deeper (see the example on expanding 1st level).
 </LI>
 
+<LI>
+Note that you can specify different defaults for mail and news (thanks to Stanimir Stamenkov for this remark):
+ <CODE><PRE>
+@-moz-document url-prefix("news:"), url-prefix("snews:") {
+   /* Newsgroups */
+}
+
+@-moz-document url-prefix("imap:"), url-prefix("mailbox:") {
+   /* Mail */
+}</PRE></CODE>
+</LI>
+
 </UL>
 
