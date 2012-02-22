@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+{% capture pageid %}{{ page.url | remove_first:'/' | remove:'.html'}}{% endcapture %}
+<html lang="en">
+ <head>
+<title>{{ site.project }}: {{ pageid }}</title>
+   <link href="//www.mozdev.org/skin/default/default.css" rel="Stylesheet" type="text/css">
+   <link media="print" rel="Stylesheet" type="text/css" href="//www.mozdev.org/skin/default/print.css">
+   <link rel="alternate" type="application/rss+xml" title="VCS Commits" href="/feed/vcslog">
+   <link rel="alternate" type="application/rss+xml" title="Download files" href="/feed/download_file">
+{% include head.txt %}
+</head>
+<body class="{{ pageid }} {{ site.project }} {{ site.project }}-{{ pageid }}" id="{{ site.project }}-mozdev-org">
+{% include html_body.html %}
+<!-- ####################### BEGIN MAIN CONTENT ########################## -->
+	 <div id="main-content">
+{% include project_nav.html %}
+{{ content }}
+{% include footer.html %}
