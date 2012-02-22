@@ -1,5 +1,6 @@
+{% capture pageid %}{{ page.url | remove_first:'/' | remove:'.html'}}{% endcapture %}
  </head>
- <body>
+ <body class="{{ pageid }} {{ site.project }} {{ site.project }}-{{ pageid }}" id="{{ site.project }}-mozdev-org">
   <!-- ################### BEGIN TOP ################## -->
     <h1 id="mozdev-logo"><a accesskey="M" href="http://www.mozdev.org/" tabindex="1"><img alt="mozdev.org" height="69"
       src="http://www.mozdev.org/sharedimages/mozdev.gif" title="" width="148"></a></h1>
