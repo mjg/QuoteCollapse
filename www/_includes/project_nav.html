@@ -1,0 +1,34 @@
+<h1 class="project-name" id="content">{{ site.project }}</h1>
+
+<table id="project-navigation">
+
+<!--
+  <tbody id="sub-projects" class="project-navigations">
+  <tr>
+  <th scope="row">subprojects:</th>
+  <td class="navigation-list">  
+  <a class="first-item" href="/subprojectdir/index.html">subproject name</a>
+  <a href="/subprojectpage.html">subproject name</a>
+  </td>
+  </tr>
+  </tbody>
+-->
+
+  <tbody id="resources" class="project-navigations">
+  <tr>
+  <th scope="row">resources:</th>
+  <td class="navigation-list">
+  <a class="first-item" href="{{ site.baseurl}}/index.html">Home</a>
+  <a href="{{ site.baseurl}}/list.html">Mailing List</a>
+  <a href="{{ site.baseurl}}/installation.html">Installation</a>
+  <a href="{{ site.baseurl}}/customising.html">Customising</a>
+    <a href="{{ site.baseurl}}/source.html">Source Code</a>
+  <a href="http://{{ site.project }}.mozdev.org/members.html">Members</a>
+<!--
+    <a href="{{ site.baseurl}}/bugs.html">Bugs</a>
+-->
+    <a href="{{ site.baseurl}}/screenshots.html">Screenshots</a>
+  </td>
+  </tr>
+  </tbody>
+</table>
