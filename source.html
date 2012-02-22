@@ -6,16 +6,16 @@ layout: default
 <h5 class="page-header">Source Code</h5>
 
 <p id="src-intro">
-  The spellbutton source code can be accessed in either of the following ways:
+  The {{ site.project }} source code can be accessed in either of the following ways:
 </p>
 
 <ul id="get-the-src">
-<li>View the source using the <abbr title="Concurrent Versions System">CVS</abbr> <a href="http://www.mozdev.org/source/browse/spellbutton/">web interface</a></li>
+<li>View the source using the <abbr title="Concurrent Versions System">CVS</abbr> <a href="http://www.mozdev.org/source/browse/{{ site.project }}/">web interface</a></li>
 <li>Check out the source using anonymous CVS with the following commands (password is guest):
 
 <pre>
 cvs -d :pserver:guest@mozdev.org:/cvs login
-cvs -z3 -d :pserver:guest@mozdev.org:/cvs co spellbutton/src spellbutton/www
+cvs -z3 -d :pserver:guest@mozdev.org:/cvs co {{ site.project }}/src {{ site.project }}/www
 </pre>
 
 </li>
