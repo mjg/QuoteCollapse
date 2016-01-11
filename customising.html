@@ -1,0 +1,186 @@
+---
+layout: default
+---
+
+
+<!-- ***************** INFO/NEWS *************** -->
+<div id="infoTabs">
+<div class="infoTab" id="other-stuff">
+<h5 class="infoHeader">Other Stuff</h5>
+<script type="text/javascript"><!--
+google_ad_client = "pub-5604756703943711";
+google_ad_width = 160;
+google_ad_height = 600;
+google_ad_format = "160x600_as";
+google_ad_type = "text_image";
+google_ad_channel ="9437245315";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+</div>
+
+
+<!-- MAIN CONTENT -->
+<h3 class="page-header"><a id="content" name="content">Customising</a></h3>
+
+<h5><a id="keybinding" name="keybinding">Key bindings</a></h5>
+<P>
+You can define a key binding for QuoteCollapse by using the <a href="http://mozilla.dorando.at/readme.html">Keyconfig extension</a>.
+The necessary code to execute on a keypress is as follows:
+<P>
+<CODE><PRE>
+var messageDocument = QuoteCollapse._messagePane.contentDocument;
+bq = messageDocument.getElementsByTagName("blockquote").item(0);
+if( ! bq ) return;
+var newstate= ! QuoteCollapse._getState(bq);
+QuoteCollapse._setTree(messageDocument, newstate);
+</PRE></CODE>
+
+<P> In future versions of QuoteCollapse there will be a special utility function QuoteCollapse.Toggle() which accomplishes the same.
+
+<h5><a id="style" name="style">Style</a></h5>
+
+
+<P>The style that QuoteCollapse applies by default is equivalent to the following:
+<P>
+<CODE><PRE>
+blockquote[type="cite"] {
+  background: url("chrome://quotecollapse/skin/twisty-clsd.png") no-repeat top left;
+  height: 2ex;
+  padding-bottom: 0px ! important;
+  overflow: -moz-hidden-unscrollable;
+}
+
+blockquote[type="cite"][qctoggled="true"] {
+  background: url("chrome://quotecollapse/skin/twisty-open.png") no-repeat top left;
+  height: auto;
+  overflow: visible;
+}
+</PRE></CODE>
+<P>Therefore, you can style everything through your userContent.css. You can edit this file by hand or using the 
+<a href="http://cdn.mozdev.org/chromedit/">ChromeEdit extension</a>. Note that you have to use the &quot;important&quot; flag to override the default settings. Note also the use of <CODE>BODY.mailview</CODE> which ensures that the style is applied when viewing mails only (not in the editor).
+<BR>Examples:
+
+<UL>
+
+<LI> Expand all quotes by default:
+<CODE><PRE>
+BODY.mailview blockquote[type="cite"] {
+  background-image: url("chrome://quotecollapse/skin/twisty-open.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+BODY.mailview blockquote[type="cite"][qctoggled="true"] {
+  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: 2ex !important;
+  padding-bottom: 0px !important;
+  overflow: -moz-hidden-unscrollable !important;
+} 
+</PRE></CODE>
+
+<LI> No twisty when expanded:
+<CODE><PRE>
+BODY.mailview blockquote[type="cite"][qctoggled="true"] {
+  background-image: none ! important ;
+}
+</PRE></CODE>
+</LI>
+
+<LI> Minimize collapsed size to the height of the twisty:
+ <CODE><PRE>
+BODY.mailview blockquote[type="cite"]:not([qctoggled="true"]) {
+  height: 9px !important;
+}
+ </PRE></CODE>
+</LI>
+
+<LI> Always keep 1st level expanded:
+ <CODE><PRE>
+/* overwrite quotecollapse default */
+blockquote[type="cite"] {
+  background-image: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* reinstate for level 1 and above: */
+BODY.mailview blockquote[type="cite"] blockquote[type="cite"] {
+  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: 2ex !important;
+  padding-bottom: 0px !important;
+  overflow: -moz-hidden-unscrollable !important;
+}
+
+BODY.mailview blockquote[type="cite"] blockquote[type="cite"][qctoggled="true"] {
+  background-image: url("chrome://quotecollapse/skin/twisty-open.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+ </PRE></CODE>
+</LI>
+
+<LI> Always expand the first quote:
+ <CODE><PRE>
+/* overwrite quotecollapse default for first quote */
+DIV > pre:first-child + blockquote[type="cite"] {
+  background-image: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}</PRE></CODE>
+ This may need to be tweaked depending on quoting styles. E.g., add the same rule for blockquotes which are first childs instead of adjacent to a first child pre.
+</LI>
+
+<LI> Collapse only the first quote:
+ <CODE><PRE>
+/* overwrite quotecollapse default for first quote */
+blockquote[type="cite"] {
+  background-image: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* reinstate for second quote and following: */
+BODY.mailview DIV > pre:first-child + blockquote[type="cite"] {
+  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: 2ex !important;
+  padding-bottom: 0px !important;
+  overflow: -moz-hidden-unscrollable !important;
+}
+
+BODY.mailview DIV > pre:first-child + blockquote[type="cite"][qctoggled="true"] {
+  background-image: url("chrome://quotecollapse/skin/twisty-open.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: top left !important;
+  height: auto !important;
+  overflow: visible !important;
+}</PRE></CODE>
+The same remark as above applies. Also, if you want twisties inside of the first quote, add rules for level 1 and deeper (see the example on expanding 1st level).
+</LI>
+
+<LI>
+Note that you can specify different defaults for mail and news (thanks to Stanimir Stamenkov for this remark):
+ <CODE><PRE>
+@-moz-document url-prefix("news:"), url-prefix("snews:") {
+   /* Newsgroups */
+}
+
+@-moz-document url-prefix("imap:"), url-prefix("mailbox:") {
+   /* Mail */
+}</PRE></CODE>
+</LI>
+
+</UL>
+

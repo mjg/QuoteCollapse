@@ -1,0 +1,5 @@
+@import url("http://www.mozdev.org/project.css");
+
+.struck {
+  text-decoration: line-through;
+}
