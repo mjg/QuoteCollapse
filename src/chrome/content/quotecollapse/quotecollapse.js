@@ -59,16 +59,21 @@ var QuoteCollapse = {
     // we don't need a BODY.mailview qualifier here
     var stylecontent='\
 blockquote[type="cite"] {\n\
- background: url("chrome://quotecollapse/skin/twisty-clsd.png") no-repeat top left;\n\
- height: 2.25ex;\n\
- padding-bottom: 0px ! important;\n\
+ max-height: 1.2em;\n\
  overflow: -moz-hidden-unscrollable;\n\
+}\n\
+blockquote[type="cite"]::before {\n\
+ position: absolute;\n\
+ margin-left: -1em;\n\
+ content: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
 }\n\
 \n\
 blockquote[type="cite"][qctoggled="true"] {\n\
- background: url("chrome://quotecollapse/skin/twisty-open.png") no-repeat top left;\n\
- height: auto;\n\
+ max-height: none;\n\
  overflow: visible;\n\
+}\n\
+blockquote[type="cite"][qctoggled="true"]::before {\n\
+ content: url("chrome://quotecollapse/skin/twisty-open.png");\n\
 }\n\
 ';
     var styletext = document.createTextNode(stylecontent);
