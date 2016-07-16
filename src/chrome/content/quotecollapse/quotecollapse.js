@@ -62,13 +62,13 @@ blockquote[type="cite"] {\n\
  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
  background-repeat: no-repeat;\n\
  background-position: top left;\n\
- height: 2.25ex;\n\
+ max-height: 1.2em;\n\
  overflow: -moz-hidden-unscrollable;\n\
 }\n\
 \n\
 blockquote[type="cite"][qctoggled="true"] {\n\
  background-image: url("chrome://quotecollapse/skin/twisty-open.png");\n\
- height: auto;\n\
+ max-height: none;\n\
  overflow: visible;\n\
 }\n\
 ';
