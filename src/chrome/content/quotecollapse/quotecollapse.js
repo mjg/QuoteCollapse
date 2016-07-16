@@ -58,21 +58,21 @@ var QuoteCollapse = {
     StyleElement.type = "text/css";
     // we don't need a BODY.mailview qualifier here
     var stylecontent='\
-blockquote[type="cite"] {\n\
+blockquote[type="cite"], blockquote.gmail_quote {\n\
  max-height: 1.2em;\n\
  overflow: -moz-hidden-unscrollable;\n\
 }\n\
-blockquote[type="cite"]::before {\n\
+blockquote[type="cite"]::before, blockquote.gmail_quote::before {\n\
  position: absolute;\n\
  margin-left: -1em;\n\
  content: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
 }\n\
 \n\
-blockquote[type="cite"][qctoggled="true"] {\n\
+blockquote[type="cite"][qctoggled="true"], blockquote.gmail_quote[qctoggled="true"] {\n\
  max-height: none;\n\
  overflow: visible;\n\
 }\n\
-blockquote[type="cite"][qctoggled="true"]::before {\n\
+blockquote[type="cite"][qctoggled="true"]::before, blockquote.gmail_quote[qctoggled="true"]::before {\n\
  content: url("chrome://quotecollapse/skin/twisty-open.png");\n\
 }\n\
 ';
