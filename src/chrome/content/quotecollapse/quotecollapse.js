@@ -81,11 +81,21 @@ blockquote[type="cite"][qctoggled="true"], blockquote.gmail_quote[qctoggled="tru
     return (node.getAttribute("qctoggled")=="true");
   },
 
-  _setState: function(node, state) {
+  _setState: function(node, state, bubble) {
     if(state)
       node.setAttribute("qctoggled","true");
     else
       node.setAttribute("qctoggled","false");
+
+    if (bubble) {
+      var parentNode = node.parentNode;
+      while (parentNode) {
+        if (parentNode.nodeName == 'BLOCKQUOTE') {
+          QuoteCollapse._setState(parentNode, state);
+        }
+        parentNode = parentNode.parentNode;
+      }
+    }
   },
 
   _setSubTree: function(node, state) {
@@ -153,7 +163,7 @@ blockquote[type="cite"][qctoggled="true"], blockquote.gmail_quote[qctoggled="tru
       if(event.ctrlKey || event.metaKey)
         QuoteCollapse._setLevel(target, newstate);
       else
-        QuoteCollapse._setState(target, newstate);
+        QuoteCollapse._setState(target, newstate, newstate);
     return true;
   },
 
