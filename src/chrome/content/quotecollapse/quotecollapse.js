@@ -71,6 +71,13 @@ blockquote[type="cite"][qctoggled="true"], blockquote.gmail_quote[qctoggled="tru
  max-height: none;\n\
  overflow: visible;\n\
 }\n\
+\n\
+:-moz-any(blockquote[type="cite"], blockquote.gmail_quote):not([qctoggled="true"])\n\
+:-moz-any(blockquote[type="cite"], blockquote.gmail_quote) {\n\
+ background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
+ max-height: 1.2em;\n\
+ overflow: -moz-hidden-unscrollable;\n\
+}\n\
 ';
     var styletext = document.createTextNode(stylecontent);
     StyleElement.appendChild(styletext);
@@ -78,7 +85,16 @@ blockquote[type="cite"][qctoggled="true"], blockquote.gmail_quote[qctoggled="tru
   },
 
   _getState: function(node) {
-    return (node.getAttribute("qctoggled")=="true");
+    let current = node;
+    while (current) {
+      if (current.nodeName == "BLOCKQUOTE" &&
+          (current.getAttribute("type") == "cite" || current.className.match(/(^|\s)gmail_quote(\s|$)/i)) &&
+          current.getAttribute("qctoggled") != "true")
+	return false;
+
+      current = current.parentNode
+    }
+    return true;
   },
 
   _setState: function(node, state, bubble) {
