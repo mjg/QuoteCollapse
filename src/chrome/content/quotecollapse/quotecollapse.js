@@ -82,6 +82,36 @@ blockquote[type="cite"][qctoggled="true"], blockquote.gmail_quote[qctoggled="tru
     var styletext = document.createTextNode(stylecontent);
     StyleElement.appendChild(styletext);
     messageDocument.getElementsByTagName("head").item(0).appendChild(StyleElement);
+
+
+    QuoteCollapse._handleResize();
+    var contentWindow = messageDocument.defaultView;
+    var running = false;
+    contentWindow.addEventListener("optimizedResize", QuoteCollapse._handleResize);
+    contentWindow.addEventListener("resize", function () {
+      if (running) { return; }
+      running = true;
+      contentWindow.requestAnimationFrame(function () {
+        contentWindow.dispatchEvent(new CustomEvent("optimizedResize"));
+        running = false;
+      });
+    });
+  },
+
+  _handleResize: function (_event) {
+    let contentDocument = QuoteCollapse._messagePane.contentDocument;
+    QuoteCollapse._updateRevealed(contentDocument.getElementsByTagName("blockquote"));
+  },
+
+  _updateRevealed: function (quotes) {
+    for (let i = 0; i < quotes.length; i++) {
+      let q = quotes[i];
+      if (q.scrollHeight > q.clientHeight) {
+        q.removeAttribute("qcrevealed");
+      } else {
+        q.setAttribute("qcrevealed", "true");
+      }
+    }
   },
 
   _getState: function(node) {
@@ -104,13 +134,17 @@ blockquote[type="cite"][qctoggled="true"], blockquote.gmail_quote[qctoggled="tru
       node.setAttribute("qctoggled","false");
 
     if (bubble) {
+      var last = node;
       var parentNode = node.parentNode;
       while (parentNode) {
         if (parentNode.nodeName == 'BLOCKQUOTE') {
           QuoteCollapse._setState(parentNode, state);
+          last = parentNode;
         }
         parentNode = parentNode.parentNode;
       }
+      QuoteCollapse._updateRevealed([ last ]);
+      QuoteCollapse._updateRevealed(last.getElementsByTagName("blockquote"));
     }
   },
 
