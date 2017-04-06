@@ -6,27 +6,17 @@ layout: default
 <h5 class="page-header">Source Code</h5>
 
 <p id="src-intro">
-  The quotecollapse source code can be accessed in either of the following ways:
+  The {{ site.project }} source code can be accessed in either of the following ways:
 </p>
 
 <ul id="get-the-src">
-<li>View the source using the CVS <a href="http://www.mozdev.org/source/browse/quotecollapse/">web interface</a></li>
-<li>Check out the source using anonymous CVS with the following commands (password is guest):
+<li>View the source using <a href="https://github.com">GitHub's</a>  <a href=" https://github.com/{{ site.owner }}{{ site.baseurl }}">web interface</a></li>
+<li>Check out the source with <a href="https://git-scm.com">Git</a> using <b>either</b> of the following commands:
 
 <pre>
-cvs -d :pserver:guest@mozdev.org:/cvs login
-cvs -z3 -d :pserver:guest@mozdev.org:/cvs co quotecollapse
-</pre>
-
-</li>
-<li>View the source using the Git <a href="http://github.com/mjg/QuoteCollapse">web interface</a></li>
-<li>Check out the source using Git with <b>either</b> of the following commands:
-
-<pre>
-git clone git://github.com/mjg/QuoteCollapse.git
-git clone http://github.com/mjgQuoteCollapse.git
+git clone git://github.com/{{ site.owner }}{{ site.baseurl }}.git
+git clone https://github.com/{{ site.owner }}{{ site.baseurl }}.git
 </pre>
 
 </li>
 </ul>
-
