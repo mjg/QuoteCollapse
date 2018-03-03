@@ -166,7 +166,7 @@ blockquote[type="cite"]:not([qctoggled="true"]) blockquote[type="cite"] {\n\
 
 
 // react only to active spot (leave rest for copy etc.)
-    if( (event.pageX > target.offsetLeft+12) || (event.pageY > target.offsetTop+12) ) return true;
+    if(event.pageX > target.offsetLeft+12) return true;
     
     if(event.shiftKey)
       if(event.ctrlKey || event.metaKey)
