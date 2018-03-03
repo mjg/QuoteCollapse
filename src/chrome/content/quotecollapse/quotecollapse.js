@@ -82,11 +82,21 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     return (node.getAttribute("qctoggled")=="true");
   },
 
-  _setState: function(node, state) {
+  _setState: function(node, state, bubble) {
     if(state)
       node.setAttribute("qctoggled","true");
     else
       node.setAttribute("qctoggled","false");
+
+    if(bubble) {
+      var currentParent = node.parentNode;
+      while(currentParent) {
+        if(currentParent.nodeName == 'BLOCKQUOTE')
+          QuoteCollapse._setState(currentParent, state);
+
+        currentParent = currentParent.parentNode;
+      }
+    }
   },
 
   _setSubTree: function(node, state) {
@@ -154,7 +164,7 @@ blockquote[type="cite"][qctoggled="true"] {\n\
       if(event.ctrlKey || event.metaKey)
         QuoteCollapse._setLevel(target, newstate);
       else
-        QuoteCollapse._setState(target, newstate);
+        QuoteCollapse._setState(target, newstate, newstate);
     return true;
   },
 
