@@ -72,6 +72,12 @@ blockquote[type="cite"][qctoggled="true"] {\n\
  max-height: none;\n\
  overflow: visible;\n\
 }\n\
+\n\
+blockquote[type="cite"]:not([qctoggled="true"]) blockquote[type="cite"] {\n\
+ background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
+ max-height: 2.25ex;\n\
+ overflow: -moz-hidden-unscrollable;\n\
+}\n\
 ';
     var styletext = document.createTextNode(stylecontent);
     StyleElement.appendChild(styletext);
@@ -79,7 +85,14 @@ blockquote[type="cite"][qctoggled="true"] {\n\
   },
 
   _getState: function(node) {
-    return (node.getAttribute("qctoggled")=="true");
+    let current = node;
+    while(current) {
+      if(current.nodeName == "BLOCKQUOTE" && current.getAttribute("qctoggled") != "true")
+        return false;
+
+      current = current.parentNode
+    }
+    return true;
   },
 
   _setState: function(node, state, bubble) {
