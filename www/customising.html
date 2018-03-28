@@ -173,6 +173,20 @@ BODY.mailview DIV > pre:first-child + blockquote[type="cite"][qctoggled="true"] 
 The same remark as above applies. Also, if you want twisties inside of the first quote, add rules for level 1 and deeper (see the example on expanding 1st level).
 </LI>
 
+<LI> Partially collapse quotes:
+ <CODE><PRE>
+/* partially reveal first level collapsed quotes */
+BODY.mailview blockquote[type="cite"]:not([qctoggled="true"]) {
+  max-height: 6.5em !important;
+}
+
+/* always have nested collapsed quotes reveal just one line of text */
+BODY.mailview blockquote[type="cite"]:not([qctoggled="true"])
+              blockquote[type="cite"]:not([qctoggled="true"]) {
+  max-height: 2ex !important;
+}</PRE></CODE>
+</LI>
+
 <LI>
 Note that you can specify different defaults for mail and news (thanks to Stanimir Stamenkov for this remark):
  <CODE><PRE>
