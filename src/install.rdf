@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>{0b62b504-857c-4f62-a336-2e8425bd5738}</em:id>     
-    <em:version>0.9</em:version>
+    <em:version>1.0</em:version>
     
     <!-- Target Application this extension can install into, 
         with minimum and maximum supported versions. -->
@@ -14,8 +14,8 @@
     <em:targetApplication>
       <Description>
          <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
-         <em:minVersion>3.0b1</em:minVersion>
-         <em:maxVersion>10.*</em:maxVersion>
+         <em:minVersion>50.0</em:minVersion>
+         <em:maxVersion>53.*</em:maxVersion>
       </Description>
     </em:targetApplication>
    
@@ -32,7 +32,8 @@
     <em:name>QuoteCollapse</em:name>
     <em:description>Collapse quotes.</em:description>
     <em:creator>Michael J Gruber</em:creator>
-    <em:homepageURL>http://quotecollapse.mozdev.org/</em:homepageURL>
+    <em:contributor>Stanimir Stamenkov</em:contributor>
+    <em:homepageURL>http://mjg.github.io/QuoteCollapse/</em:homepageURL>
     <em:iconURL>chrome://quotecollapse/content/quotecollapse.png</em:iconURL>
     <!-- Front End Integration Hooks (used by Extension Manager)-->
     <!-- 
