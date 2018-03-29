@@ -59,16 +59,24 @@ var QuoteCollapse = {
     // we don't need a BODY.mailview qualifier here
     var stylecontent='\
 blockquote[type="cite"] {\n\
- background: url("chrome://quotecollapse/skin/twisty-clsd.png") no-repeat top left;\n\
- height: 2.25ex;\n\
+ background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
+ background-repeat: no-repeat;\n\
+ background-position: top left;\n\
+ max-height: 2.25ex;\n\
  padding-bottom: 0px ! important;\n\
  overflow: -moz-hidden-unscrollable;\n\
 }\n\
 \n\
 blockquote[type="cite"][qctoggled="true"] {\n\
- background: url("chrome://quotecollapse/skin/twisty-open.png") no-repeat top left;\n\
- height: auto;\n\
+ background-image: url("chrome://quotecollapse/skin/twisty-open.png");\n\
+ max-height: none;\n\
  overflow: visible;\n\
+}\n\
+\n\
+blockquote[type="cite"]:not([qctoggled="true"]) blockquote[type="cite"] {\n\
+ background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
+ max-height: 2.25ex;\n\
+ overflow: -moz-hidden-unscrollable;\n\
 }\n\
 ';
     var styletext = document.createTextNode(stylecontent);
@@ -77,14 +85,31 @@ blockquote[type="cite"][qctoggled="true"] {\n\
   },
 
   _getState: function(node) {
-    return (node.getAttribute("qctoggled")=="true");
+    let current = node;
+    while(current) {
+      if(current.nodeName == "BLOCKQUOTE" && current.getAttribute("qctoggled") != "true")
+        return false;
+
+      current = current.parentNode
+    }
+    return true;
   },
 
-  _setState: function(node, state) {
+  _setState: function(node, state, bubble) {
     if(state)
       node.setAttribute("qctoggled","true");
     else
       node.setAttribute("qctoggled","false");
+
+    if(bubble) {
+      var currentParent = node.parentNode;
+      while(currentParent) {
+        if(currentParent.nodeName == 'BLOCKQUOTE')
+          QuoteCollapse._setState(currentParent, state);
+
+        currentParent = currentParent.parentNode;
+      }
+    }
   },
 
   _setSubTree: function(node, state) {
@@ -141,7 +166,7 @@ blockquote[type="cite"][qctoggled="true"] {\n\
 
 
 // react only to active spot (leave rest for copy etc.)
-    if( (event.pageX > target.offsetLeft+12) || (event.pageY > target.offsetTop+12) ) return true;
+    if(event.pageX > target.offsetLeft+12) return true;
     
     if(event.shiftKey)
       if(event.ctrlKey || event.metaKey)
@@ -152,7 +177,7 @@ blockquote[type="cite"][qctoggled="true"] {\n\
       if(event.ctrlKey || event.metaKey)
         QuoteCollapse._setLevel(target, newstate);
       else
-        QuoteCollapse._setState(target, newstate);
+        QuoteCollapse._setState(target, newstate, newstate);
     return true;
   },
 
