@@ -40,15 +40,5 @@
     <em:optionsURL>chrome://quotecollapse/content/options.xul</em:optionsURL>
     <em:aboutURL>chrome://quotecollapse/content/options.xul</em:aboutURL>
     -->
-    
-    <!-- Packages, Skins and Locales that this extension registers -->
-    <em:file>
-      <Description about="urn:mozilla:extension:file:quotecollapse.jar">
-        <em:package>content/quotecollapse/</em:package>
-<!--        <em:locale>locale/en-US/quotecollapse/</em:locale> -->
-        <em:skin>skin/classic/quotecollapse/</em:skin> 
-        <em:skin>skin/mcrystal/quotecollapse/</em:skin>
-      </Description>
-    </em:file>
   </Description>      
 </RDF>
