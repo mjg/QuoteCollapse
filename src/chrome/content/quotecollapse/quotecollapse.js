@@ -186,8 +186,13 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     else
       if(event.ctrlKey || event.metaKey)
         QuoteCollapse._setLevel(target, newstate);
-      else
+      else {
         QuoteCollapse._setState(target, newstate, newstate);
+        if(newstate)
+          for(let nested of target.querySelectorAll("blockquote")) {
+            QuoteCollapse._toggleFullyVisible(nested);
+          }
+      }
     return true;
   },
 
