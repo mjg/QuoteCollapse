@@ -134,7 +134,12 @@ blockquote[type="cite"][qctoggled="true"] {\n\
   _setSubTreeLevel: function(node, state, level) {
     if(node.nodeName == 'BLOCKQUOTE') {
       if(level<=0) {
-        QuoteCollapse._setState(node, state);
+        QuoteCollapse._setState(node, state, state);
+        if(state)
+          for(let nested of node.querySelectorAll("blockquote")) {
+            QuoteCollapse._toggleFullyVisible(nested);
+          }
+
 	return; // no need to go deeper
       }
       level--; // only BQs count for the level magic
