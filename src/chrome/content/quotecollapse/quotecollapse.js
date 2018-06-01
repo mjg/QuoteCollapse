@@ -72,16 +72,26 @@ blockquote[type="cite"][qctoggled="true"] {\n\
  max-height: none;\n\
  overflow: visible;\n\
 }\n\
-\n\
-blockquote[type="cite"]:not([qctoggled="true"]) blockquote[type="cite"] {\n\
- background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
- max-height: 2.25ex;\n\
- overflow: -moz-hidden-unscrollable;\n\
-}\n\
 ';
     var styletext = document.createTextNode(stylecontent);
     StyleElement.appendChild(styletext);
     messageDocument.getElementsByTagName("head").item(0).appendChild(StyleElement);
+
+    for(let quote of messageDocument.querySelectorAll("blockquote")) {
+      QuoteCollapse._toggleFullyVisible(quote);
+    }
+  },
+  
+  _toggleFullyVisible: function toggleFullyVisible(quote) {
+    if(quote.clientHeight < quote.scrollHeight)
+      return false;
+
+    for(let nested of quote.querySelectorAll("blockquote")) {
+      if(!toggleFullyVisible(nested))
+        return false;
+    }
+    quote.setAttribute("qctoggled", "true");
+    return true;
   },
 
   _getState: function(node) {
@@ -124,7 +134,12 @@ blockquote[type="cite"]:not([qctoggled="true"]) blockquote[type="cite"] {\n\
   _setSubTreeLevel: function(node, state, level) {
     if(node.nodeName == 'BLOCKQUOTE') {
       if(level<=0) {
-        QuoteCollapse._setState(node, state);
+        QuoteCollapse._setState(node, state, state);
+        if(state)
+          for(let nested of node.querySelectorAll("blockquote")) {
+            QuoteCollapse._toggleFullyVisible(nested);
+          }
+
 	return; // no need to go deeper
       }
       level--; // only BQs count for the level magic
@@ -176,8 +191,13 @@ blockquote[type="cite"]:not([qctoggled="true"]) blockquote[type="cite"] {\n\
     else
       if(event.ctrlKey || event.metaKey)
         QuoteCollapse._setLevel(target, newstate);
-      else
+      else {
         QuoteCollapse._setState(target, newstate, newstate);
+        if(newstate)
+          for(let nested of target.querySelectorAll("blockquote")) {
+            QuoteCollapse._toggleFullyVisible(nested);
+          }
+      }
     return true;
   },
 
