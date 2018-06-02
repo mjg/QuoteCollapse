@@ -201,6 +201,28 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     return true;
   },
 
+  _getCollapseLevels: function getCollapseLevels(node, current = 0, levels = { min: -1, max: -1 }) {
+    if(node.localName == "blockquote") {
+      if(node.getAttribute("qctoggled") != "true") {
+        levels.min = (levels.min < 0) ? current : Math.min(current, levels.min);
+        levels.max = (levels.max < 0) ? current : Math.max(current, levels.max);
+        return levels;
+      }
+      current += 1;
+    }
+
+    let nestedQuotes = QuoteCollapse._getQuoteRoots(node);
+    for(let i = 0; i < nestedQuotes.length; i++) {
+      getCollapseLevels(nestedQuotes[i], current, levels);
+    }
+
+    if(node.localName == "blockquote" && nestedQuotes.length == 0) {
+      levels.min = (levels.min < 0) ? current : Math.min(current, levels.min);
+      levels.max = (levels.max < 0) ? current : Math.max(current, levels.max);
+    }
+    return levels;
+  },
+
   _getQuoteRoots: function getQuoteRoots(node, result = []) {
     for(let childElement of node.children) {
       if(childElement.localName == "blockquote")
