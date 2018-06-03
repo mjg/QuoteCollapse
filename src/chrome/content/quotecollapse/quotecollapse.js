@@ -201,6 +201,22 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     return true;
   },
 
+  Expand: function expand(deepest) {
+    let messageDocument = QuoteCollapse._messagePane.contentDocument;
+    let levels = QuoteCollapse._getCollapseLevels(messageDocument.body);
+    let targetLevel = deepest ? levels.max : levels.min;
+    if (targetLevel >= 0)
+      QuoteCollapse._setSubTreeLevel(messageDocument.body, true, targetLevel);
+  },
+
+  Collapse: function collapse(topMost) {
+    let messageDocument = QuoteCollapse._messagePane.contentDocument;
+    let levels = QuoteCollapse._getCollapseLevels(messageDocument.body);
+    let targetLevel = topMost ? levels.min : levels.max;
+    if (targetLevel > 0)
+      QuoteCollapse._setSubTreeLevel(messageDocument.body, false, targetLevel - 1);
+  },
+
   _getCollapseLevels: function getCollapseLevels(node, current = 0, levels = { min: -1, max: -1 }) {
     if(node.localName == "blockquote") {
       if(node.getAttribute("qctoggled") != "true") {
