@@ -40,6 +40,21 @@ QuoteCollapse._setTree(messageDocument, newstate);
 
 <P> In future versions of QuoteCollapse there will be a special utility function QuoteCollapse.Toggle() which accomplishes the same.
 
+<P><STRONG>Version 1.2</STRONG> introduces:
+<UL>
+<LI><CODE>QuoteCollapse.Expand();</CODE>
+  <P>Expands first (top-most) collapsed level available.</LI>
+<LI><CODE>QuoteCollapse.Expand(true);</CODE>
+  <P>Expands the deepest collapsed level available.</LI>
+<LI><CODE>QuoteCollapse.Collapse();</CODE>
+  <P>Collapses the deepest expanded level available.</LI>
+<LI><CODE>QuoteCollapse.Collapse(true);</CODE>
+  <P>Collapses the top-most expanded level available.</LI>
+</UL>
+<P>It is anticipated people will mostly use just <CODE>QuoteCollapse.Expand()</CODE>
+and <CODE>QuoteCollapse.Collapse()</CODE>.  One may optionally bind the <CODE>(true)</CODE>
+variants with additional modifier like <kbd>Shift</kbd>.
+
 <h5><a id="style" name="style">Style</a></h5>
 
 
