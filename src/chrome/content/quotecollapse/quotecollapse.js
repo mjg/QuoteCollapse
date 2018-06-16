@@ -218,21 +218,17 @@ blockquote[type="cite"][qctoggled="true"] {\n\
   },
 
   _getCollapseLevels: function getCollapseLevels(node, current = 0, levels = { min: -1, max: -1 }) {
-    if(node.localName == "blockquote") {
-      if(node.getAttribute("qctoggled") != "true") {
+    let nestedQuotes = QuoteCollapse._getQuoteRoots(node);
+    for(let nested of nestedQuotes) {
+      if(nested.getAttribute("qctoggled") == "true")
+        getCollapseLevels(nested, current + 1, levels);
+      else {
         levels.min = (levels.min < 0) ? current : Math.min(current, levels.min);
         levels.max = (levels.max < 0) ? current : Math.max(current, levels.max);
-        return levels;
       }
-      current += 1;
     }
 
-    let nestedQuotes = QuoteCollapse._getQuoteRoots(node);
-    for(let i = 0; i < nestedQuotes.length; i++) {
-      getCollapseLevels(nestedQuotes[i], current, levels);
-    }
-
-    if(node.localName == "blockquote" && nestedQuotes.length == 0) {
+    if(nestedQuotes.length == 0 && current > 0) {
       levels.min = (levels.min < 0) ? current : Math.min(current, levels.min);
       levels.max = (levels.max < 0) ? current : Math.max(current, levels.max);
     }
