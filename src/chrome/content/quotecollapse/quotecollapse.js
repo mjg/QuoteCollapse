@@ -77,7 +77,7 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     StyleElement.appendChild(styletext);
     messageDocument.getElementsByTagName("head").item(0).appendChild(StyleElement);
 
-    for(let quote of messageDocument.querySelectorAll("blockquote")) {
+    for(let quote of QuoteCollapse._getQuoteRoots(messageDocument.body)) {
       QuoteCollapse._toggleFullyVisible(quote);
     }
   },
@@ -86,7 +86,7 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     if(quote.clientHeight < quote.scrollHeight)
       return false;
 
-    for(let nested of quote.querySelectorAll("blockquote")) {
+    for(let nested of QuoteCollapse._getQuoteRoots(quote)) {
       if(!toggleFullyVisible(nested))
         return false;
     }
@@ -201,6 +201,15 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     return true;
   },
 
+  _getQuoteRoots: function getQuoteRoots(node, result = []) {
+    for(let childElement of node.children) {
+      if(childElement.localName == "blockquote")
+        result.push(childElement);
+      else
+        getQuoteRoots(childElement, result);
+    }
+    return result;
+  },
 
 
 };
