@@ -203,36 +203,49 @@ blockquote[type="cite"][qctoggled="true"] {\n\
 
   Expand: function expand(deepest) {
     let messageDocument = QuoteCollapse._messagePane.contentDocument;
-    let levels = QuoteCollapse._getCollapseLevels(messageDocument.body);
-    let targetLevel = deepest ? levels.max : levels.min;
-    if (targetLevel >= 0)
+    let levels = QuoteCollapse._getToggleLevels(messageDocument.body);
+    let targetLevel = deepest ? levels.collapsed.max : levels.collapsed.min;
+    if (targetLevel != null)
       QuoteCollapse._setSubTreeLevel(messageDocument.body, true, targetLevel);
   },
 
   Collapse: function collapse(topMost) {
     let messageDocument = QuoteCollapse._messagePane.contentDocument;
-    let levels = QuoteCollapse._getCollapseLevels(messageDocument.body);
-    let targetLevel = topMost ? levels.min : levels.max;
-    if (targetLevel > 0)
-      QuoteCollapse._setSubTreeLevel(messageDocument.body, false, targetLevel - 1);
+    let levels = QuoteCollapse._getToggleLevels(messageDocument.body);
+    let targetLevel = topMost ? levels.expanded.min : levels.expanded.max;
+    if (targetLevel != null)
+      QuoteCollapse._setSubTreeLevel(messageDocument.body, false, targetLevel);
   },
 
-  _getCollapseLevels: function getCollapseLevels(node, current = 0, levels = { min: -1, max: -1 }) {
+  _getToggleLevels: function getToggleLevels(node, current = 0, levels = null) {
+    if(levels == null)
+      levels = { expanded: new MinMaxValues(),
+                 collapsed: new MinMaxValues() };
+
     let nestedQuotes = QuoteCollapse._getQuoteRoots(node);
     for(let nested of nestedQuotes) {
       if(nested.getAttribute("qctoggled") == "true")
-        getCollapseLevels(nested, current + 1, levels);
+        getToggleLevels(nested, current + 1, levels);
       else {
-        levels.min = (levels.min < 0) ? current : Math.min(current, levels.min);
-        levels.max = (levels.max < 0) ? current : Math.max(current, levels.max);
+        levels.collapsed.update(current);
+        if(current > 0)
+          levels.expanded.update(current - 1);
       }
     }
 
-    if(nestedQuotes.length == 0 && current > 0) {
-      levels.min = (levels.min < 0) ? current : Math.min(current, levels.min);
-      levels.max = (levels.max < 0) ? current : Math.max(current, levels.max);
-    }
+    if(nestedQuotes.length == 0 && current > 0)
+      levels.expanded.update(current - 1);
+
     return levels;
+
+    function MinMaxValues() {
+      this.min = null;
+      this.max = null;
+      this.update = function update(value) {
+        this.min = (this.min == null) ? value : Math.min(value, this.min);
+        this.max = (this.max == null) ? value : Math.max(value, this.max);
+      }
+    }
   },
 
   _getQuoteRoots: function getQuoteRoots(node, result = []) {
