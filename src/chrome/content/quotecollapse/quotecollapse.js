@@ -201,6 +201,53 @@ blockquote[type="cite"][qctoggled="true"] {\n\
     return true;
   },
 
+  Expand: function expand(deepest) {
+    let messageDocument = QuoteCollapse._messagePane.contentDocument;
+    let levels = QuoteCollapse._getToggleLevels(messageDocument.body);
+    let targetLevel = deepest ? levels.collapsed.max : levels.collapsed.min;
+    if (targetLevel != null)
+      QuoteCollapse._setSubTreeLevel(messageDocument.body, true, targetLevel);
+  },
+
+  Collapse: function collapse(topMost) {
+    let messageDocument = QuoteCollapse._messagePane.contentDocument;
+    let levels = QuoteCollapse._getToggleLevels(messageDocument.body);
+    let targetLevel = topMost ? levels.expanded.min : levels.expanded.max;
+    if (targetLevel != null)
+      QuoteCollapse._setSubTreeLevel(messageDocument.body, false, targetLevel);
+  },
+
+  _getToggleLevels: function getToggleLevels(node, current = 0, levels = null) {
+    if(levels == null)
+      levels = { expanded: new MinMaxValues(),
+                 collapsed: new MinMaxValues() };
+
+    let nestedQuotes = QuoteCollapse._getQuoteRoots(node);
+    for(let nested of nestedQuotes) {
+      if(nested.getAttribute("qctoggled") == "true")
+        getToggleLevels(nested, current + 1, levels);
+      else {
+        levels.collapsed.update(current);
+        if(current > 0)
+          levels.expanded.update(current - 1);
+      }
+    }
+
+    if(nestedQuotes.length == 0 && current > 0)
+      levels.expanded.update(current - 1);
+
+    return levels;
+
+    function MinMaxValues() {
+      this.min = null;
+      this.max = null;
+      this.update = function update(value) {
+        this.min = (this.min == null) ? value : Math.min(value, this.min);
+        this.max = (this.max == null) ? value : Math.max(value, this.max);
+      }
+    }
+  },
+
   _getQuoteRoots: function getQuoteRoots(node, result = []) {
     for(let childElement of node.children) {
       if(childElement.localName == "blockquote")
