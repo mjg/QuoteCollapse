@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://quotecollapse/locale/toggleQuotes.dtd" >
+
+<?xml-stylesheet href="chrome://messenger/content/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://quotecollapse/skin/toggleQuotes.css" type="text/css"?>
+
+<!-- This overlay is for Thunderbird -->
+
+<overlay id="quotecollapse" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="chrome://messenger/content/mailWindowOverlay.js"/>
+  <script src="chrome://global/content/globalOverlay.js"/>
+  <script src="chrome://quotecollapse/content/quotecollapse.js"/>
+</overlay>
+
