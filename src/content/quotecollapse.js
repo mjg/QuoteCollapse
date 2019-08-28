@@ -27,6 +27,10 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+window.addEventListener("load", function load(event){
+    window.removeEventListener("load", load, false); //remove listener, no longer needed
+    QuoteCollapse.onMailWindowLoad();
+},false);
 
 var QuoteCollapse = {
 //  _URIFixup : Components.classes["@mozilla.org/docshell/urifixup;1"].getService(Components.interfaces.nsIURIFixup),
@@ -62,8 +66,8 @@ blockquote[type="cite"] {\n\
  background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
  background-repeat: no-repeat;\n\
  background-position: top left;\n\
- max-height: 2.25ex;\n\
- padding-bottom: 0px ! important;\n\
+ max-height: 2ex;\n\
+ padding: 0px 2ex ! important;\n\
  overflow: -moz-hidden-unscrollable;\n\
 }\n\
 \n\
@@ -214,6 +218,3 @@ blockquote[type="cite"][qctoggled="true"] {\n\
 
 };
 
-// register listener so that we can update the popup
-// This is done from the corresponding xul 
-// window.addEventListener("load", QuoteCollapse.onWindowLoad, true);
