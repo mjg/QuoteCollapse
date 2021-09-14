@@ -63,7 +63,7 @@ var QuoteCollapse = {
     // we don't need a BODY.mailview qualifier here
     var stylecontent='\
 blockquote[type="cite"] {\n\
- background-image: url("chrome://quotecollapse/skin/twisty-clsd.png");\n\
+ background-image: url("resource://quotecollapse/twisty-clsd.png");\n\
  background-repeat: no-repeat;\n\
  background-position: top left;\n\
  max-height: 2ex;\n\
@@ -72,7 +72,7 @@ blockquote[type="cite"] {\n\
 }\n\
 \n\
 blockquote[type="cite"][qctoggled="true"] {\n\
- background-image: url("chrome://quotecollapse/skin/twisty-open.png");\n\
+ background-image: url("resource://quotecollapse/twisty-open.png");\n\
  max-height: none;\n\
  overflow: visible;\n\
 }\n\
